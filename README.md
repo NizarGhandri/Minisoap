@@ -14,6 +14,10 @@ Run index.html in the html folder. Doc generated with doxygen with configuration
 ## About the language
 The language dictionary with instructions on how to use every operations can be found in src/dictionary.md
 
+## Requirements
+Minisoap is still fully functional only on unix.
+For reading other formats than wav please install [ffmpeg](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg)
+
 ## Launch Minisoap
 ```
 python src/Minisoap.py
