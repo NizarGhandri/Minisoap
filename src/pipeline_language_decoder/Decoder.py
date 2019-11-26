@@ -11,7 +11,7 @@ class Decoder(Transformer):
     # Grammar format from Lark library
     # Describes the language in a format called EBNF
     # rule_name : list of rules and TERMINALS to match
-    # TERMINAL: string or a regular expression
+    # TERMINAL: string, int, float or a regular expression
     grammar = Lark(r"""
     
     instruction: op args | control_op
