@@ -59,8 +59,8 @@ def check_in_range(value, startInclusive=0, endExclusive= m.inf):
 #  @param track2 second track
 # This method checks if two tracks have the same parameters
 def check_same_params(track1, track2):
-#    check_instance(track1, Track, "track given not instance of track")
-#    check_instance(track2, Track, "track given not instance of track")
+    check_instance(track1, Track, "track given not instance of track")
+    check_instance(track2, Track, "track given not instance of track")
     get_params = lambda x: (x.get_nchannels(), x.get_samplewidth(), x.get_framerate())
     check((track1, track2), predicate=lambda x: get_params(x[0]) == get_params(x[1]), details="non compatible Tracks")
 

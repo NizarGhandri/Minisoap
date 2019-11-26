@@ -1,4 +1,0 @@
-open ["src/libraries/example.wav", 0]
-read [0, 0]
-write ["tst.wav", 0]
-execute

@@ -66,8 +66,8 @@ class Stream(ABC):
             
             self.wave_signal = wave.open(self.file, mode)  #getting rid of expensive try catch 
             self.launched = True
-        except FileNotFoundError:
-            p.eprint("File {!r} not found".format(self.file))
+            
+            
         except: 
             p.eprint("IOError occured while opening file {!r} in {!r} mode".format(self.file, mode))
             

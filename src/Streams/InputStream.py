@@ -11,6 +11,7 @@ import Preconditions as p
 from Streams.Stream import Stream as s
 import subprocess
 
+
 class InputStream(s): 
     reading_mode = 'rb'
     def __init__ (self, source, infinite = False, launch = True): 
@@ -40,33 +41,33 @@ class InputStream(s):
         p.check(not(self.infinite), details ="cannot completly load an infinite stream")
         return self.read_n_frames(self.size())
     
-    def get_nchannels(self):
+    def nchannels(self):
         return self.wave_parameters[0]
     
-    def get_stereo(self):
+    def stereo(self):
         p.check(self.launched, details ="cannot verify if stereo for unopened stream")
         return self.wave_parameters[0] - 1
     
-    def get_mono(self): 
+    def mono(self): 
         p.check(self.launched, details ="cannot verify if mono for unopened stream")
         return self.wave_parameters[0] % 2
     
-    def get_samplewidth (self):
+    def sample_width (self):
         p.check(self.launched, details ="cannot obtain sample width for unopened stream")
         return self.wave_parameters[1]
     
-    def get_framerate(self): 
+    def frame_rate(self): 
         p.check(self.launched, details ="cannot obtain frame rate for unopened stream")
         return self.wave_parameters[2]
 
-    def get_size (self): 
+    def size (self): 
         p.check(self.launched, details ="cannot return size of unopened stream")
         if (self.infinite):
             return m.inf
         else:
             return self.wave_parameters[3]
         
-    def get_current_pos(self):
+    def current_pos(self):
         p.check(self.launched, details ="cannot return pointer of unopened stream")
         return self.wave_signal.tell()
     

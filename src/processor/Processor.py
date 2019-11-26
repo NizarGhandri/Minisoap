@@ -4,7 +4,6 @@
 
 import queue as Queue
 from Streams.InputStream import InputStream as Input
-from Streams.Playlist import Playlist, merge_playlists
 import libraries.generators as g
 from Streams.OutputStream import OutputStream as Output
 import libraries.operations as op
@@ -12,11 +11,6 @@ import sounddevice as sd
 from Streams.soundCard.InputStreamSoundCard import InputStream_SoundCard
 from Streams.soundCard.OutputStreamSoundCard import OutputStream_SoundCard
 import Preconditions as p
-from Tools import format_path
-
-import os
-
-project_directory = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 ## Processor
 #
@@ -31,7 +25,6 @@ class Processor():
         self.stream_in = {}
         self.stream_out = {}
         self.av_tracks = {}
-        self._playlists = {}
         
     ## @var pipeline
     #  Pipeline of instructions
@@ -100,12 +93,6 @@ class Processor():
     #  @param self Object's pointer
     def streams(self):
         print(self.stream_in)
-
-    ## Print all created playlists to stdout
-    #
-    #  @param self Object's pointer
-    def playlists(self):
-        print(self._playlists)
         
     ## Print pipeline to stdout
     #
@@ -121,10 +108,8 @@ class Processor():
     #
     #  @param self Object's pointer
     def helpp(self):
-        helpfile = os.path.join(project_directory, "src", "help.txt")
-        
         print("######################################## HELP ########################################")
-        with open(helpfile, 'r') as fin:
+        with open('help.txt', 'r') as fin:
             print(fin.read())
            
     ###################################################### OPERATIONS
@@ -138,41 +123,9 @@ class Processor():
     #  @param file_path Input Stream file path
     #  @param file_id Id with which the input stream will be stored
     def openn(self, file_path, file_id):
-        path = format_path (file_path)
-        try:
-            stream = Input(path)
-            self.stream_in.update({file_id: stream})
-        except:
-            raise Exception ("Cannot open file \""+path+"\"")
-    
-    ## Creates a playlist
-    #
-    #  @param self Object's pointer
-    #  @param dir_path playlist directory path
-    #  @param playlist_id Id with which the playlist will be stored
-    def playlist(self, dir_path, playlist_id):
-        playlist = Playlist(dir_path)
-        self._playlists.update({playlist_id: playlist})
-    
-    ## Shuffles a playlist
-    #
-    #  @param self Object's pointer
-    #  @param playlist_id Id with which the playlist is stored
-    def shuffle_playlist(self, playlist_id):
-        playlist = self._playlists.get(playlist_id)
-        p.check_non_none(playlist, details="Invalid playlist ID")
-        playlist.shuffle()
-    
-    ## Transforms a playlist to a track
-    # 
-    #  @param self Object's pointer
-    #  @param playlist_id Id with which the playlist is stored
-    #  @param track_id Id with which the track will be stored
-    def playlist_to_track(self, playlist_id, track_id):
-        playlist = self._playlists.get(playlist_id)
-        p.check_non_none(playlist, details="Invalid playlist ID")
-        self.av_tracks.update({track_id: playlist.to_track()})
-
+        stream = Input(file_path)
+        self.stream_in.update({file_id: stream})
+        
     ## Close input stream
     #
     #  @param self Object's pointer

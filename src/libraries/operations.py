@@ -53,18 +53,6 @@ def add(track, track2, t, a1=0.5, a2=0.5):
     return Track(a1*track.extend_with_zeroes_behind(extention_frames_b) + a2*track2.extend_with_zeroes_front(extention_frames_f), extention_frames_b + extention_frames_f + r, track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
 
 
-## Concats two tracks
-#
-#  @param track first track
-#  @param track2 second track
-#  @return new modified track
-def concat(track, track2):
-    p.check_same_params(track, track2)
-    extention_frames_b = track2.get_size()
-    extention_frames_f = track.get_size()
-    return Track(track.extend_with_zeroes_behind(extention_frames_b) + track2.extend_with_zeroes_front(extention_frames_f), extention_frames_b + extention_frames_f + r, track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
-
-
 ## Join two tracks in stereo
 #
 #  @param track first track
