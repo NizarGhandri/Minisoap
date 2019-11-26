@@ -4,7 +4,8 @@
 # @{
 
 import numpy as np
-from Streams.Tracks import Track
+from Streams.Track import Track
+import Preconditions as p
 
 ## Generate sine wave by number of samples
 #
@@ -17,6 +18,7 @@ from Streams.Tracks import Track
 #  @param fs sampling frequency
 #  @return sine wave track
 def sine_n(A, n, f, start = 0, nchannels = 2, samplewidth = 2, fs=44100):
+    p.check(A, lambda x: x >= 0 and x <= 1, details="Amplitude must be between 0 and 1")
     frame_slice = np.arange(start, n)/fs
     samples = frame_slice
     for i in range(1,nchannels): 

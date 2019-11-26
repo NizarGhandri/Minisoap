@@ -3,7 +3,7 @@
 # This module should contain all operations available on tracks
 # @{
 
-from Streams.Tracks import Track
+from Streams.Track import Track
 import numpy as np
 import Preconditions as p
 
@@ -26,6 +26,7 @@ def nullify(track, start=0, end=None):
 #  @param a amplitude multiplication factor
 #  @return new modified track
 def amplitude(track, a):
+    p.check(a, lambda x: x >= 0 and x <= 1, details="Amplitude must be between 0 and 1")
     return Track(a*track.get_data(), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
 
 ## Convolve two tracks
@@ -46,6 +47,7 @@ def convolve(track, track2):
 #  @param a2 amplitude multiplier of second track
 #  @return new modified track
 def add(track, track2, t, a1=0.5, a2=0.5):
+    p.check((a1, a2), lambda x: x[0] + x[1] == 1, details="Sum of amplitudes must be 1")
     p.check_same_params(track, track2)
     r = t*track2.get_framerate()
     extention_frames_b = track2.get_size() - r

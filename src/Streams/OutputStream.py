@@ -10,7 +10,6 @@ import Preconditions as p
 from Streams.Stream import Stream as s
 import subprocess
 
-
 class OutputStream (s): 
     
     writting_mode = 'wb'
@@ -31,8 +30,9 @@ class OutputStream (s):
         p.check(not(self.infinite), details ="cannot completly load an infinite stream")
         try: 
             return self.wave_signal.writeframesraw(self.track.get_raw_data())
-        except:
+        except Exception as e:
             p.eprint("Error occured while writting the frames to destination", self.file)
+            print(e)
             
     def set_as_stereo(self):
         p.check(self.launched, details ="cannot verify if stereo for unopened stream")

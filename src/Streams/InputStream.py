@@ -5,7 +5,7 @@ Created on Sat Oct  5 00:49:13 2019
 
 @author: nizar
 """
-from Streams.Tracks import Track
+from Streams.Track import Track
 import math as m
 import Preconditions as p
 from Streams.Stream import Stream as s
