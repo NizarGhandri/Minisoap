@@ -11,9 +11,12 @@ import Preconditions as p
 from Streams.Stream import Stream as s
 import subprocess
 
+## Input stream class for local files 
+# Class inheriting from stream and defining the input for a local file
 
 class InputStream(s): 
     reading_mode = 'rb'
+    
     def __init__ (self, source, infinite = False, launch = True): 
         super().__init__(source, infinite, launch)
     
@@ -27,7 +30,9 @@ class InputStream(s):
         super().close()
         self.end_format()
         
-        
+    ##reads_n_frames 
+    # @params:  n the number of frames to be read 
+    # returns a Track
     def read_n_frames (self, n):
         p.check(self.launched, details ="cannot read unopened stream")
         p.check_in_range(n, endExclusive = self.size()+1)
@@ -36,11 +41,15 @@ class InputStream(s):
         #except:
             #p.eprint("Error occured while reading the frames from source", self.file)
             
-            
+    ## read_all 
+    # reads all teh available frames (uses the read_n_frames method)        
     def read_all (self):
         p.check(not(self.infinite), details ="cannot completly load an infinite stream")
         return self.read_n_frames(self.size())
     
+    
+    
+    ########## getters and setters for different attributes
     def nchannels(self):
         return self.wave_parameters[0]
     

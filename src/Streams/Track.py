@@ -8,13 +8,24 @@ Created on Thu Nov  7 23:47:04 2019
 import numpy as np
 import Preconditions as p
 
+
+## Track
+#this class is the lowest level of encapsulation of the data of the audio, this class is designed to be "immutable" so we can keep the old data as well.
+#this is the data type used by the operations the generators and the output streams
+
+
+ 
 class Track ():
     
+    ##constructor 
+    # @params: data in bytes or floats (between -1 and 1)
+    # @params: wave parameters to add 
     def __init__ (self, data, nframes, nchannels, samplewidth=2, framerate= 44100):
         self.size = nframes
         self.nchannels = nchannels
         self.samplewidth = samplewidth
         self.framerate = framerate
+        self.time = framerate * nframes 
         if(type(data) == bytes):
             p.check(nframes*samplewidth*nchannels == len(data))
             self.data = self.byte_float_converter(data)
@@ -22,7 +33,9 @@ class Track ():
             p.check(data.shape == (nframes, nchannels))
             self.data = np.array(data)
             
-        
+    ####### getters of the attributes 
+    
+    
     def get_nchannels(self):
         return self.nchannels
     
@@ -40,10 +53,13 @@ class Track ():
     
     def get_framerate(self):
         return self.framerate 
-    
+    ## get_time
+    # returns how long in seconds the Track is 
     def get_time(self):
-        return self.framerate*self.size
-    
+        return self.time
+    ## byte_float_converter: 
+    # @params: data in bytes
+    # method to convert the bytearray returned by reading the wav file into an array of normalized floating point numbers (-1, 1)
     def byte_float_converter (self, data): #can't use struct.unpack because of the 24 bit format.
         step = self.nchannels
         size = self.size
@@ -55,7 +71,9 @@ class Track ():
                 end = start+ samp
                 returned [i, k] = int.from_bytes(data[start:end], "big")
         return returned/2**(8*samp-1) - 1
-    
+    ## float_byte_converter
+    # @params: data in floating point
+    # method to convert back the floating point array with all its values in (-1, 1) to a bytes data structure
     def float_byte_converter (self, array): 
         samp = self.samplewidth
         interm = (array+1) * 2**(8*samp-1)
@@ -65,10 +83,15 @@ class Track ():
                 returned += int.to_bytes(int(interm[i, k]), samp, 'big') 
         return returned
     
+    ## get_data_slice
+    # @params: start_time (from which second do you want the data)
+    # @params: end_time (until what seocnd should the data range)
+    # returning a slice of the data in function of time
     def get_data_slice (self, start_time, end_time):
         return np.array(self.data[int(self.framerate*start_time):int(self.framerate*end_time)])
                           
-                        
+    ##########" private methods usefull for mixing 
+                   
     def extend_with_zeroes_front (self, n):
         return np.concatenate((np.zeros((n, self.nchannels)), np.array(self.data)))
     
