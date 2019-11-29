@@ -1,40 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Oct  9 18:30:22 2019
 
-@author: chris
-"""
 
-from Preconditions import *
 from pipeline_language_decoder.Decoder import Decoder
-from threading import Thread
-
+import Preconditions as p
+## Console
+#
+# This object is the console of the Minisoap that will take user's instructions
 class Console():
     
-    
-    def __init__(self):
-        self.decoder = None
-        self.started = False
-        self.thread = None
-        
-        
-    def add_decoder(self, decoder):
+    ## Console constructor
+    #  @param self Object's pointer
+    #  @param decoder Minisoap's decoder pointer
+    def __init__(self, decoder):
+        p.check_instance(decoder, Decoder, details="Decoder given not instance of decoder")
         self.decoder = decoder
+            
     
+    ## @var decoder
+    #  Minisoap's decoder pointer
     
+    ## Console starting method
+    #  @param self Object's pointer
+    #  Enters an infinite loop (until stopped by the "stop" command) and take instructions from the user
     def start(self):
-        self.started = True
-        self.thread = Thread(target=self.command)
-        self.thread.start()    
-        
-    def command(self):
-        check(decoder, isinstance(Decoder))
-        while(self.started):
+        while(True):
             instruction = input("Write instruction\n")
-            self.decoder.decode(instruction)
-            
-            
-        
-    def end(self):
-        self.started = False
+            try:
+                self.decoder.transform(Decoder.grammar.parse(instruction))
+            except Exception as e:
+                print("ERROR in instruction")
+                #print(e)
+                pass
