@@ -5,54 +5,85 @@ Created on Fri Oct 11 14:16:04 2019
 
 @author: nizar
 """
-import wave
-import math as m
-from src.Preconditions import Preconditions as p
-from Stream import Stream as s
+
+import Preconditions as p
+from Streams.Stream import Stream as s
+import subprocess
+##Output stream class for local files:
+# Class inheriting from stream and defining the output for a local file
 
 class OutputStream (s): 
     
     writting_mode = 'wb'
-       
-    def __init__ (self, destination, launch = True, stereo=True, mono=False, samplewidth=2, framerate= 44100, nframes=1024): 
+    ## Constructor 
+    # @params: destination 
+    # @params: Track 
+    # @params: launch, by default is True 
+    # takes only a track and destination and a launch as parameters, the infinite parameter is Flase because we cannot write an infinite stream 
+    def __init__ (self, destination, track, launch = True): 
         super().__init__(destination, False, launch)
-        self.wave_signal.setparams((0, samplewidth, framerate, nframes, 'NONE', 'NONE'))
-        p.check(stereo != mono, "can't be mono and stereo and the same time")
-        if(stereo): 
-            self.set_as_stereo()
-        else: 
-            self.set_as_mono()
+        self.wave_signal.setparams((track.get_nchannels(), track.get_samplewidth(), track.get_framerate(), track.get_size(), 'NONE', 'NONE'))
+        self.track = track
     
-    def open(self): 
+    def open(self):
         super().open(OutputStream.writting_mode)
     
     def close(self):
         super().close()
-       
+        self.handle_format()
     
-    def write (self, data):
-        p.check(not(self.infinite), "cannot completly load an infinite stream")
+    
+    ## write
+    # writes all the frames in a given track in the given destination of the stream
+    def write (self):
+        p.check(not(self.infinite), details ="cannot completly load an infinite stream")
         try: 
-            return self.wave_signal.writeframesraw(data)
-        except:
-            p.eprint("Error occured while writting the frames to destination", self.destination)
+            return self.wave_signal.writeframesraw(self.track.get_raw_data())
+        except Exception as e:
+            p.eprint("Error occured while writting the frames to destination", self.file)
+            print(e)
             
+            
+    ########## setters for attributes:
+       
     def set_as_stereo(self):
-        p.check(not(self.launched), "cannot verify if stereo for unopened stream")
+        p.check(self.launched, details ="cannot verify if stereo for unopened stream")
         self.wave_signal.setnchannels(2)
     
     def set_as_mono(self): 
-        p.check(not(self.launched), "cannot verify if mono for unopened stream")
+        p.check(self.launched, details ="cannot verify if mono for unopened stream")
         self.wave_signal.setnchannels(1)
     
     def set_sample_width (self, n):
-        p.check(not(self.launched), "cannot obtain sample width for unopened stream")
+        p.check(self.launched, details ="cannot obtain sample width for unopened stream")
         self.wave_signal.setsampwidth(n)
     
     def set_frame_rate(self, n): 
-        p.check(not(self.launched), "cannot obtain frame rate for unopened stream")
+        p.check(self.launched, details ="cannot obtain frame rate for unopened stream")
         self.wave_signal.setframerate(n)
 
     def set_size (self, n): 
-        p.check(not(self.launched), "cannot return size of unopened stream")
+        p.check(self.launched, details ="cannot return size of unopened stream")
         self.wave_signal.setnframes(n)
+        
+     ######### Handling file format
+     
+     
+    def handle_format(self):
+        
+        if(self.file_format == "mp3"):
+            old_path = self.file[:-3] + self.file_format
+            bashCommand = "ffmpeg -nostats -loglevel 0 -i " + self.file + " " + old_path 
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate()
+        
+        if(self.file_format != "wav"):
+            bashCommand = "rm " + self.file
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate()
+        
+
+
+        
+        
+    

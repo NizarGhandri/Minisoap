@@ -2,10 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-from Preconditions import *
 from pipeline_language_decoder.Decoder import Decoder
-from threading import Thread
-
+import Preconditions as p
 ## Console
 #
 # This object is the console of the Minisoap that will take user's instructions
@@ -15,6 +13,7 @@ class Console():
     #  @param self Object's pointer
     #  @param decoder Minisoap's decoder pointer
     def __init__(self, decoder):
+        p.check_instance(decoder, Decoder, details="Decoder given not instance of decoder")
         self.decoder = decoder
             
     
@@ -31,4 +30,5 @@ class Console():
                 self.decoder.transform(Decoder.grammar.parse(instruction))
             except Exception as e:
                 print("ERROR in instruction")
+                #print(e)
                 pass

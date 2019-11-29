@@ -1,49 +1,104 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 11 15:22:14 2019
+## @defgroup operations Operations module
+# 
+# This module should contain all operations available on tracks
+# @{
 
-@author: chris
-"""
-
+from Streams.Track import Track
 import numpy as np
+import Preconditions as p
 
-def identity(seq):
-    return seq
-
-def nullify(seq):
-    return 0*seq
-
-
-def amplitude(seq, a):
-    return a*seq
-
-
-def convolve(seq1, seq2):
-    return np.convolve(seq1, seq2)
-
-
-def add(seq1, seq2, a1=0.5, a2=0.5):
-    return a1*seq1 + a2*seq2
+## Nullify a track
+#
+#  @param track the track
+#  @param start second when to start
+#  @param end second when to end
+#  @return new modified track
+def nullify(track, start=0, end=None):
+    if (end is None):
+        return amplitude(track, 0)
+    else:
+        return Track(np.concatenate((track.get_data_slice(0, start), track.get_data_slice(start, end)*0, track.get_data_slice(end, track.get_time()))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
 
 
-def join(seq1, seq2):
-    return np.vstack((seq1, seq2)).T
+## Multiply amplitude of track
+#
+#  @param track the track
+#  @param a amplitude multiplication factor
+#  @return new modified track
+def amplitude(track, a):
+    p.check(a, lambda x: x >= 0 and x <= 1, details="Amplitude must be between 0 and 1")
+    return Track(a*track.get_data(), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
+
+## Convolve two tracks
+#
+#  @param track first track
+#  @param track2 second track
+#  @return new modified track
+def convolve(track, track2):
+    p.check_same_params(track, track2)
+    return Track(np.convolve(track.get_data(), track2.get_data()), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
 
 
-def fade_exp(seq, factor):
-    return np.array([seq[k, ]*np.exp(-factor*(k)) for k in range(np.shape(seq)[0])])
+## Mix two tracks
+#
+#  @param track first track
+#  @param track2 second track
+#  @param a1 amplitude multiplier of frist track
+#  @param a2 amplitude multiplier of second track
+#  @return new modified track
+def add(track, track2, t, a1=0.5, a2=0.5):
+    p.check((a1, a2), lambda x: x[0] + x[1] == 1, details="Sum of amplitudes must be 1")
+    p.check_same_params(track, track2)
+    r = t*track2.get_framerate()
+    extention_frames_b = track2.get_size() - r
+    extention_frames_f = track.get_size() - r
+    return Track(a1*track.extend_with_zeroes_behind(extention_frames_b) + a2*track2.extend_with_zeroes_front(extention_frames_f), extention_frames_b + extention_frames_f + r, track.get_nchannels(), track.get_samplewidth(), track.get_framerate())
 
 
-#def fade_lin(seq, speed):
-#    return np.array([(seq[k] - np.sign(seq[k])*speed*k) for k in range(len(seq))])
+## Join two tracks in stereo
+#
+#  @param track first track
+#  @param track2 second track
+#  @return new modified track
+def mono_to_stereo(track, track2):
+    p.check(track.get_nchannels() == 1 and track2.get_nchannels() == 1, details ="non mono Tracks")
+    p.check_same_params(track, track2)
+    return Track(np.column_stack((track.get_data(), track2.get_data())), track.get_size(), 2, track.get_samplewidth(), track.get_framerate())
 
 
-def crossfade_exp(seq1, seq2, factor):
-    return fade_exp(seq1, factor) + np.flip(fade_exp(seq2, factor))
+## Fade a track
+#
+#  @param track first track
+#  @param factor fading factor
+#  @param t second when to start the fade
+#  @return new modified track
+def fade_exp(track, factor, t):
+    d = track.get_data_slice(t, track.get_size()/track.get_framerate())
+    return Track(np.concatenate((track.get_data_slice(0, t), np.array([d[k, ]*2**(-factor*(k)) for k in range(np.shape(d)[0])]))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
 
 
-#def crossfade_lin(seq1, seq2, speed):
-#    return fade_lin(seq1, speed) + np.flip(fade_lin(seq2, -speed))
+## Fade inverse a track
+#
+#  @param track first track
+#  @param factor fading factor
+#  @param t second when to start the fade
+#  @return new modified track
+def fade_inv(track, factor, t):
+    d = track.get_data_slice(0, t)
+    return Track(np.concatenate((d * np.array([d[k, ]*(1-2**(-factor*(k))) for k in range(np.shape(d)[0])]), track.get_data_slice(t, track.get_size()/track.get_framerate()))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
 
 
+## Crossfade two track
+#
+#  @param track1 first track
+#  @param track2 second track
+#  @param factor fading factor
+#  @param t second when to start the fade
+#  @return new modified track
+def crossfade_exp(track1, track2, factor, t):
+    p.check_same_params(track1, track2)
+    return add(fade_exp(track1, factor), fade_inv(track2, factor), t, a1=1, a2 =1)
+
+
+
+#@}

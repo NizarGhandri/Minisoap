@@ -6,22 +6,42 @@ Created on Fri Oct 18 16:18:45 2019
 @author: chris
 """
 
-from scipy.io import wavfile
-from libraries.generators import *
-from libraries.operations import *
+import matplotlib.pyplot as plt
+import sys
+sys.path.append('../')
+from Streams.InputStream import InputStream as Input
+from Streams.OutputStream import OutputStream as Output
+import operations as op
+import generators as g
+
+#import operations as op
 
 ## READ FILE
-fs, data = wavfile.read('libraries/example.wav')
-plt.plot(data)
+
+#K = Input("example.wav")
+#T = K.read_all()
+#plt.plot(T.get_data())
+#plt.show()
+#K.close()
+
 
 ## GENERATE WAVES
-seq1 = sine(2, 2)
-seq2 = square(2, 2, a=0.8)
+seq1 = g.sine_t(1, 10, 440, nchannels=1)
+seq2 = g.constant_t(2, 2)
 
-plt.plot(seq1)
-plt.plot(seq2)
 
-plt.plot(fade_exp(seq2, 0.00001))
-plt.plot(fade_exp(seq1, 0.00001))
+
+O = op.mono_to_stereo(seq1, seq1)
+
+
+w = Output("example_sine_mono.wav", seq1)
+w.write()
+w.close()
+z = Output("example_sine_joined.wav", O)
+z.write()
+z.close()
+
+
+#plt.plot(op.fade_exp(seq1, 0.00001))
  
-plt.plot(crossfade_exp(seq1, seq2, 0.00001))
+#plt.plot(op.crossfade_exp(seq1, seq2, 0.00001))
