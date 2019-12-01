@@ -88,6 +88,9 @@ class Track ():
     # @params: end_time (until what seocnd should the data range)
     # returning a slice of the data in function of time
     def get_data_slice (self, start_time, end_time):
+        print(start_time, end_time)
+        print("here")
+        print (self.data[(start_time*self.framerate):(self.framerate*end_time)])
         return np.array(self.data[int(self.framerate*start_time):int(self.framerate*end_time)])
                           
     ##########" private methods usefull for mixing 

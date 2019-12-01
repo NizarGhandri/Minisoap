@@ -13,6 +13,7 @@ from OutputStream import OutputStream as Output
 from soundCard.OutputStreamSoundCard import OutputStream_SoundCard as out
 from Track import Track
 import libraries.operations as op
+import libraries.generators as g
 
 
 def add(seq1, seq2, a1=0.5, a2=0.5):
@@ -21,9 +22,8 @@ def add(seq1, seq2, a1=0.5, a2=0.5):
 def IO_Test ():
     wave1 = Input("samples/sanctuary.mp3")
     x = wave1.read_all()
-    #wave2 = Input("samples/out.wav")
-    #y = wave2.read_all()
-    z = op.fade_inv(x, 0.000001, 0)
+    y = g.sine_t(500, 5, 440)
+    z = op.crossfade_exp(x, y, 0.000001, 2)
     wave3 = out(z)
     wave3.write()
     wave1.close()
