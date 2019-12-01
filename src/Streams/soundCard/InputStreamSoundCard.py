@@ -14,18 +14,17 @@ from Streams.Track import Track
 
 class InputStream_SoundCard (Stream):
     
-    def __init__ (self, nchannels, framerate, dtype=sd.default.dtype, device= sd.default.device, infinite= True, launch = True):
+    def __init__ (self, nchannels, framerate, samplewidth, device= sd.default.device, infinite= True, launch = True):
         self.framerate = framerate
         self.nchannels = nchannels
-        self.samplewidth = 0
-        self.stream = sd.InputStream(samplerate=framerate, device = device, channels=nchannels, dtype=dtype)
-        super().__init__(device, infinite, launch)
+        self.samplewidth = samplewidth
+        self.stream = sd.RawInputStream(samplerate=framerate, device = device, channels=nchannels, dtype="int"+str(8*samplewidth))
+        super().__init__("None", infinite, launch)
         
         
     def open (self):
         self.launched = True
         self.stream.start()
-        self.samplewidth = self.stream.samplesize
         
     def close (self): 
         self.stream.stop()
