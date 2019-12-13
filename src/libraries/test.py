@@ -26,19 +26,20 @@ import generators as g
 
 
 ## GENERATE WAVES
-seq1 = g.sine_t(1, 10, 440)
+seq1 = g.sine_t(1, 10, 440, nchannels=1)
 seq2 = g.constant_t(2, 2)
 
 
 
-O = op.fade_exp(seq1, 0.0001, 1)
+O = op.mono_to_stereo(seq1, seq1)
 
 
-w = Output("example_sine.wav", seq1)
+w = Output("example_sine_mono.wav", seq1)
 w.write()
 w.close()
-z = Output("example_sine_faded.wav", O)
+z = Output("example_sine_joined.wav", O)
 z.write()
+z.close()
 
 
 #plt.plot(op.fade_exp(seq1, 0.00001))

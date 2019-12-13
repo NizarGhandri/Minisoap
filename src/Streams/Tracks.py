@@ -6,12 +6,9 @@ Created on Thu Nov  7 23:47:04 2019
 @author: nizar
 """
 import numpy as np
-import sys
-sys.path.append('../')
 import Preconditions as p
 
 class Track ():
-    
     
     def __init__ (self, data, nframes, nchannels, samplewidth=2, framerate= 44100):
         self.size = nframes

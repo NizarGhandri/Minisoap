@@ -1,0 +1,4 @@
+open ["src/libraries/example.wav", 0]
+read [0, 0]
+play [0]
+execute

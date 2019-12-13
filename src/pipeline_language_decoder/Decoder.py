@@ -1,6 +1,6 @@
 from lark import Lark, Transformer
 from processor.Processor import Processor
-
+import Preconditions as p
 ## Decoder
 #
 # This object is the decoder of the Minisoap that will translate user's instructions into processor commands
@@ -19,19 +19,24 @@ class Decoder(Transformer):
     control_op: CONTROL
     
     op: OP
-    args: "["string* ("," string)*"]"
+    args: "["arg* ("," arg)*"]"
     
+    arg: string | floating | integer 
     string: ESCAPED_STRING
+    integer: SIGNED_NUMBER
+    floating: SIGNED_FLOAT
     
-    CONTROL: "stop" | "execute" | "reset"
+    CONTROL: "stop" | "execute" | "reset" | "tracks" | "streams" | "show" | "help" | "playlists"
     
-    OP: "open" | "close" 
+    OP: "open" | "close" | "read" | "write" | "free" | "record" | "stop_record" | "stop_play" 
       | "sine" | "constant" | "silence"
-      | "identity" | "nullify" | "fade"
-      | "crossfade" 
+      | "nullify" | "fade" | "fadeinv" | "amplitude"
+      | "crossfade" | "stereo" | "mix" | "playlist_to_track" | "playlist" | "shuffle_playlist" | "play"
     
     
     %import common.ESCAPED_STRING
+    %import common.SIGNED_FLOAT
+    %import common.SIGNED_NUMBER
     %import common.WS
     %ignore WS
     
@@ -44,21 +49,46 @@ class Decoder(Transformer):
     #  @param self Object's pointer
     #  @param processor Minisoap's processor pointer
     def __init__(self, processor):
+        
+        p.check_instance(processor, Processor, details="Processor given not instance of processor")
         self.p = processor
     
         self.op_d = {
                 "open" : self.p.openn,
                 "close" : self.p.close,
+                "read" : self.p.read,
+                "write" : self.p.write,
+                "free" : self.p.free,
+                "record" : self.p.record,
+                "stop_record" : self.p.stop_record,
+                "play" : self.p.play,
+                "stop_play" : self.p.stop_play,
+                "playlist" : self.p.playlist,
+                "shuffle_playlist" : self.p.shuffle_playlist,
+                "playlist_to_track" : self.p.playlist_to_track,
+                
                 "sine" : self.p.sine,
                 "constant" : self.p.constant,
                 "silence" : self.p.silence,
-                "identity" : self.p.identity,
-                "fade" : self.p.fade,
-                "crossfade" : self.p.crossfade,
+                
                 "nullify" : self.p.nullify,
+                "fade" : self.p.fade,
+                "fadeinv" : self.p.fadeinv,
+                "amplitude" : self.p.amplitude,
+                
+                "crossfade" : self.p.crossfade,
+                "stereo" : self.p.stereo,
+                "mix" : self.p.mix,
+                
+                
                 "stop": self.p.stop,
                 "execute": self.p.execute,
-                "reset": self.p.reset
+                "reset": self.p.reset,
+                "tracks" : self.p.tracks,
+                "streams": self.p.streams,
+                "playlists": self.p.playlists,
+                "show" : self.p.show,
+                "help" : self.p.helpp
         }
         
         self.current_op = None
@@ -73,10 +103,16 @@ class Decoder(Transformer):
     #  Tuple storing current instruction's args
     
     ## Instruction rule decoder
+    #
+    #  @param self Object's pointer
+    #  @param x The Token
     def instruction(self, x):
         return list(x)
     
     ## op decoder
+    #
+    #  @param self Object's pointer
+    #  @param x The Token
     #
     # Calls the processor's corresponding method for operations
     def op(self, x):
@@ -86,6 +122,9 @@ class Decoder(Transformer):
     
     ## control_op decoder
     #
+    #  @param self Object's pointer
+    #  @param x The Token
+    #
     # Calls the processor's corresponding method for control operations
     def control_op(self, x):
         (x,) = x
@@ -93,17 +132,47 @@ class Decoder(Transformer):
         
     ## args rule decoder
     #
+    #  @param self Object's pointer
+    #  @param x The Token
+    #
     # Save the arguments of the instruction
     def args(self, x):
         self.p.add(self.current_op, tuple(x))
         return tuple(x)
     
+    
+    ## arg rule decoder
+    #
+    #  @param self Object's pointer
+    #  @param x The Token
+    def arg(self, x):
+        (x,) = x
+        return x
+    
     ## string TERMINAL decoder
+    #
+    #  @param self Object's pointer
+    #  @param s The Token
     def string(self, s):
         (s,) = s
         return s[1:-1]
     
-
+    ## int TERMINAL decoder
+    #
+    #  @param self Object's pointer
+    #  @param s The Token
+    def integer(self, s):
+        (s,) = s
+        return int(s)
+    
+    ## floats TERMINAL decoder
+    #
+    #  @param self Object's pointer
+    #  @param s The Token
+    def floating(self, s):
+        (s,) = s
+        return float(s)
+    
 
 
 

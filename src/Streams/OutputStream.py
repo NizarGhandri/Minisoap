@@ -6,10 +6,10 @@ Created on Fri Oct 11 14:16:04 2019
 @author: nizar
 """
 
-import sys
-sys.path.append('../')
 import Preconditions as p
 from Streams.Stream import Stream as s
+import subprocess
+
 
 class OutputStream (s): 
     
@@ -17,29 +17,22 @@ class OutputStream (s):
        
     def __init__ (self, destination, track, launch = True): 
         super().__init__(destination, False, launch)
-        if (track is not None):
-            self.wave_signal.setparams((track.get_nchannels(), track.get_samplewidth(), track.get_framerate(), track.get_size(), 'NONE', 'NONE'))
+        self.wave_signal.setparams((track.get_nchannels(), track.get_samplewidth(), track.get_framerate(), track.get_size(), 'NONE', 'NONE'))
         self.track = track
     
-    def open(self): 
+    def open(self):
         super().open(OutputStream.writting_mode)
     
     def close(self):
         super().close()
-       
-    def set_track (self, track): 
-        self.track = track
-        self.wave_signal.setparams((track.get_nchannels(), track.get_samplewidth(), track.get_framerate(), track.get_size(), 'NONE', 'NONE'))
-        
-    def set_dest (self, dest):
-        self.file = dest
+        self.handle_format()
         
     def write (self):
         p.check(not(self.infinite), details ="cannot completly load an infinite stream")
         try: 
             return self.wave_signal.writeframesraw(self.track.get_raw_data())
         except:
-            p.eprint("Error occured while writting the frames to destination", self.destination)
+            p.eprint("Error occured while writting the frames to destination", self.file)
             
     def set_as_stereo(self):
         p.check(self.launched, details ="cannot verify if stereo for unopened stream")
@@ -60,3 +53,23 @@ class OutputStream (s):
     def set_size (self, n): 
         p.check(self.launched, details ="cannot return size of unopened stream")
         self.wave_signal.setnframes(n)
+        
+        
+    def handle_format(self):
+        
+        if(self.file_format == "mp3"):
+            old_path = self.file[:-3] + self.file_format
+            bashCommand = "ffmpeg -nostats -loglevel 0 -i " + self.file + " " + old_path 
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate()
+        
+        if(self.file_format != "wav"):
+            bashCommand = "rm " + self.file
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate()
+        
+
+
+        
+        
+    

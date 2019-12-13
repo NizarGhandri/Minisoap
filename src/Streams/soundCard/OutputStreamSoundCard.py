@@ -9,21 +9,23 @@ import sys
 import sounddevice as sd #low level library for soundcard(hardware) use
 sys.path.append('../../')
 import Preconditions as p
-import Stream as s
-from Tracks import Track 
+from Streams.Stream import Stream
+from Streams.Tracks import Track 
+import numpy as np
 
-class OutputStream_SoundCard(s):
+class OutputStream_SoundCard(Stream):
     
-    def __init__ (self, device, track, launch=True):
-        super().__init__(device, False, launch)
+    def __init__ (self, track, device=sd.default.device, launch=True):
         self.track = track
         self.stream = sd.OutputStream(samplerate=self.track.get_framerate(), device=device, channels=track.get_nchannels())
+        super().__init__(None, False, launch)
+
         
     def open(self):
         self.stream.start()
         
-    def write(self): 
-        self.stream.write(self.track.data())
+    def write(self):
+        self.stream.write(np.float32(self.track.data))
         
     def close(self):
         self.stream.stop()
