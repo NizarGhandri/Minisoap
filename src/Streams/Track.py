@@ -6,9 +6,9 @@ Created on Thu Nov  7 23:47:04 2019
 @author: nizar
 """
 import sys
-sys.path.append("../../")
+#sys.path.append("../../")
 import numpy as np
-import src.Preconditions as p
+import Preconditions as p
 
 
 ## Track
