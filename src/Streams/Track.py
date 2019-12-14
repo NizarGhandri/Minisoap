@@ -5,8 +5,10 @@ Created on Thu Nov  7 23:47:04 2019
 
 @author: nizar
 """
+import sys
+sys.path.append("../../")
 import numpy as np
-import Preconditions as p
+import src.Preconditions as p
 
 
 ## Track
@@ -18,7 +20,7 @@ import Preconditions as p
 class Track ():
     
     ##constructor 
-    # @params: data in bytes or floats (between -1 and 1)
+    # @params: data in bytes or ints
     # @params: wave parameters to add 
     def __init__ (self, data, nframes, nchannels, samplewidth=2, framerate= 44100):
         self.size = nframes

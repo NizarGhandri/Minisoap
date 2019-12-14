@@ -47,7 +47,7 @@ def convolve(track, track2):
 #  @param a2 amplitude multiplier of second track
 #  @return new modified track
 def add(track, track2, t, a1=0.5, a2=0.5):
-    p.check((a1, a2), lambda x: x[0] + x[1] == 1, details="Sum of amplitudes must be 1")
+    #p.check((a1, a2), lambda x: x[0] + x[1] == 1, details="Sum of amplitudes must be 1")
     p.check_same_params(track, track2)
     r = t*track2.get_framerate()
     extention_frames_b = track2.get_size() - r
@@ -73,8 +73,8 @@ def mono_to_stereo(track, track2):
 #  @param t second when to start the fade
 #  @return new modified track
 def fade_exp(track, factor, t):
-    d = track.get_data_slice(t, track.get_size()/track.get_framerate())
-    return Track(np.concatenate((track.get_data_slice(0, t), np.array([d[k, ]*2**(-factor*(k)) for k in range(np.shape(d)[0])]))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
+    d = track.get_data_slice(t, track.get_time())
+    return Track(np.concatenate((track.get_data_slice(0, t).reshape((t*track.get_framerate(), track.get_nchannels())), np.array([d[k, ]*2**(-factor*(k)) for k in range(np.shape(d)[0])]))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
 
 
 ## Fade inverse a track
@@ -85,7 +85,7 @@ def fade_exp(track, factor, t):
 #  @return new modified track
 def fade_inv(track, factor, t):
     d = track.get_data_slice(0, t)
-    return Track(np.concatenate((d * np.array([d[k, ]*(1-2**(-factor*(k))) for k in range(np.shape(d)[0])]), track.get_data_slice(t, track.get_size()/track.get_framerate()))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
+    return Track(np.concatenate((np.array([d[k, ]*(1-2**(-factor*(k))) for k in range(np.shape(d)[0])]).reshape((t*track.get_framerate(), track.get_nchannels())), track.get_data_slice(t, track.get_time()))), track.get_size(), track.get_nchannels(), track.get_samplewidth(), track.get_framerate()) 
 
 
 ## Crossfade two track
@@ -97,7 +97,7 @@ def fade_inv(track, factor, t):
 #  @return new modified track
 def crossfade_exp(track1, track2, factor, t):
     p.check_same_params(track1, track2)
-    return add(fade_exp(track1, factor), fade_inv(track2, factor), t, a1=1, a2 =1)
+    return add(fade_exp(track1, factor, t), fade_inv(track2, factor, t), t, a1=0.9, a2 =1)
 
 
 

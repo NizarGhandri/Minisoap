@@ -39,6 +39,8 @@ class InputStream_SoundCard (Stream):
     def time (self):
         return self.stream.time
         
+    def get_framerate(self):
+        return self.framerate 
         
             
         

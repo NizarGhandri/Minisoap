@@ -35,7 +35,7 @@ class InputStream(s):
     # returns a Track
     def read_n_frames (self, n):
         p.check(self.launched, details ="cannot read unopened stream")
-        p.check_in_range(n, endExclusive = self.size()+1)
+        p.check_in_range(n, endExclusive = self.get_size()+1)
         #try:
         return Track(self.wave_signal.readframes(n), n, nchannels = self.nchannels(), samplewidth = self.sample_width(), framerate = self.frame_rate()) 
         #except:
@@ -45,38 +45,38 @@ class InputStream(s):
     # reads all teh available frames (uses the read_n_frames method)        
     def read_all (self):
         p.check(not(self.infinite), details ="cannot completly load an infinite stream")
-        return self.read_n_frames(self.size())
+        return self.read_n_frames(self.get_size())
     
     
     
     ########## getters and setters for different attributes
-    def nchannels(self):
+    def get_nchannels(self):
         return self.wave_parameters[0]
     
-    def stereo(self):
+    def is_stereo(self):
         p.check(self.launched, details ="cannot verify if stereo for unopened stream")
         return self.wave_parameters[0] - 1
     
-    def mono(self): 
+    def is_mono(self): 
         p.check(self.launched, details ="cannot verify if mono for unopened stream")
         return self.wave_parameters[0] % 2
     
-    def sample_width (self):
+    def get_sample_width (self):
         p.check(self.launched, details ="cannot obtain sample width for unopened stream")
         return self.wave_parameters[1]
     
-    def frame_rate(self): 
+    def get_frame_rate(self): 
         p.check(self.launched, details ="cannot obtain frame rate for unopened stream")
         return self.wave_parameters[2]
 
-    def size (self): 
+    def get_size (self): 
         p.check(self.launched, details ="cannot return size of unopened stream")
         if (self.infinite):
             return m.inf
         else:
             return self.wave_parameters[3]
         
-    def current_pos(self):
+    def get_current_pos(self):
         p.check(self.launched, details ="cannot return pointer of unopened stream")
         return self.wave_signal.tell()
     
@@ -92,7 +92,7 @@ class InputStream(s):
     def init_format(self):
         
         if(self.file_format == "mp3"):
-            old_path = self.file[:-3] + self.file_format
+            old_path = self.file[:self.file_extention_index] + self.file_format
             bashCommand = "ffmpeg -nostats -loglevel 0 -i " + old_path + " " + self.file
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()

@@ -72,7 +72,7 @@ class OutputStream (s):
     def handle_format(self):
         
         if(self.file_format == "mp3"):
-            old_path = self.file[:-3] + self.file_format
+            old_path = self.file[:self.file_extention_index] + self.file_format
             bashCommand = "ffmpeg -nostats -loglevel 0 -i " + self.file + " " + old_path 
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate()

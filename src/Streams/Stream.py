@@ -8,9 +8,10 @@
 # 
 # This class is a mother class of all streams in the project.
 
-
+import sys
+sys.path.append("../")
 import wave
-import Preconditions as p
+import src.Preconditions as p
 from abc import ABC, abstractmethod
 
 
@@ -19,6 +20,9 @@ from abc import ABC, abstractmethod
 
 
 class Stream(ABC): 
+    
+    file_extention_index = -3
+    supported_file_extention = "wav"
     
     ## constructor
     # @params: defines the source or destination of the stream can be a soundcard or a file ... 
@@ -30,15 +34,9 @@ class Stream(ABC):
         self.wave_signal = None
         
         self.file = file
-        self.file_format = file[-3:]
-        self.file = file[:-3] + "wav"
+        self.file_format = file[self.file_extention_index:]
+        self.file = file[:self.file_extention_index] + self.supported_file_extention
         
-        #self.input_signal = self.input_signal
-        #self.output_signal = output_signal
-        #if(output_signal): 
-        #    self.wave_parameters = (nchannels, sampwidth, framerate, nframes, 'NONE', 'not compressed')
-        #p.check(not(input_signal and output_signal),
-        #        "the stream must be either an output stream or an input stream")
         if (launch):
             self.open()
     ##open
@@ -48,10 +46,9 @@ class Stream(ABC):
     @abstractmethod      
     def open(self, mode):
         p.check(self.launched, details = "cannot open already launched stream")
-        #p.check(mode, lambda x: x == 'rb' or x == 'wb', "specify correct mode to open" )
         try:
             
-            self.wave_signal = wave.open(self.file, mode)  #getting rid of expensive try catch 
+            self.wave_signal = wave.open(self.file, mode)  
             self.launched = True
             
             
