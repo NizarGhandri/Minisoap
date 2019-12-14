@@ -31,15 +31,13 @@ class Vumeter:
         chunk_size = self.source.get_framerate()//self.approx_frames_per_sec + 1
         limit = self.source.get_size() - chunk_size
         fig, ax = plt.subplots()
-        line, = ax.plot(self.source.get_data()[0:chunk_size, 0])
+        line, = ax.plot(self.source.get_data()[0:2*chunk_size, 0]/2**(8 * self.source.get_samplewidth()-1)-1)
+        ax.set_ylim(-3, 3)
         plt.show(block=False)
-        fig.canvas.update()
-        i = chunk_size
+        i = 0
         while i < limit:
-            line.set_ydata(self.source.get_data()[i:i+chunk_size, 0])
-            ax.draw_artist(ax.patch)
-            ax.draw_artist(line)
-            fig.canvas.update()
+            line.set_ydata(self.source.get_data()[i:i+2*chunk_size, 0]/2**(8 * self.source.get_samplewidth()-1)-1)
+            fig.canvas.draw()
             fig.canvas.flush_events()
             i += chunk_size
         
