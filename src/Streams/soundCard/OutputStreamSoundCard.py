@@ -14,16 +14,18 @@ from Streams.Track import Track
 
 class OutputStream_SoundCard(Stream):
     
+    
     def __init__ (self, track, device=sd.default.device, launch=True):
-        super().__init__(device, False, launch)
         self.track = track
-        self.stream = sd.OutputStream(samplerate=self.track.get_framerate(), device=device, channels=track.get_nchannels())
+        self.device = device
+        self.stream = sd.RawOutputStream(samplerate=self.track.get_framerate(), device=self.device, channels=track.get_nchannels(), dtype="int"+str(track.get_samplewidth()*8))        
+        super().__init__("None", False, launch)
         
     def open(self):
         self.stream.start()
         
     def write(self): 
-        self.stream.write(self.track.data())
+        self.stream.write(self.track.get_raw_data())
         
     def close(self):
         self.stream.stop()

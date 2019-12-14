@@ -69,18 +69,18 @@ class Track ():
             for k in range(step):
                 start = i*samp*step+k*samp
                 end = start+ samp
-                returned [i, k] = int.from_bytes(data[start:end], "big")
-        return returned/2**(8*samp-1) - 1
+                returned [i, k] = int.from_bytes(data[start:end], "little")
+        return returned
     ## float_byte_converter
     # @params: data in floating point
     # method to convert back the floating point array with all its values in (-1, 1) to a bytes data structure
     def float_byte_converter (self, array): 
         samp = self.samplewidth
-        interm = (array+1) * 2**(8*samp-1)
+        interm = array
         returned = bytes()
         for i in range(self.size):
             for k in range(self.nchannels):
-                returned += int.to_bytes(int(interm[i, k]), samp, 'big') 
+                returned += int.to_bytes(int(interm[i, k]), samp, 'little') 
         return returned
     
     ## get_data_slice
@@ -88,6 +88,9 @@ class Track ():
     # @params: end_time (until what seocnd should the data range)
     # returning a slice of the data in function of time
     def get_data_slice (self, start_time, end_time):
+        print(start_time, end_time)
+        print("here")
+        print (self.data[(start_time*self.framerate):(self.framerate*end_time)])
         return np.array(self.data[int(self.framerate*start_time):int(self.framerate*end_time)])
                           
     ##########" private methods usefull for mixing 
