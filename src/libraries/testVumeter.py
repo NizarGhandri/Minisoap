@@ -13,9 +13,9 @@ import generators as g
 
 from Streams.InputStream import InputStream as Input
 
-K = Input("sanctuary.mp3")
+K = Input("Casio-MT-45-Beguine.wav")
 T = K.read_all()
-a = g.sine_t(1, 5, 440, nchannels = 1)
+#a = g.sine_t(1, 5, 440, nchannels = 1)
 c = v.Vumeter(track = T)
 
 c.animate_track()

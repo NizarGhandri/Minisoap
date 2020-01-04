@@ -17,7 +17,7 @@ import pyqtgraph as pg
 class Vumeter: 
     
     
-    chunk = 4096
+    chunk = 2048
     
     def __init__ (self, track=None, inputStreamSoundCard=None):
         ## selecting the valid source 
@@ -28,7 +28,7 @@ class Vumeter:
             self.source = inputStreamSoundCard
         elif (iin): 
             self.source = track
-            self.normalized_data = self.source.get_data()#/2**(8 * self.source.get_samplewidth())
+            self.normalized_data = self.source.get_data()/2**(8 * self.source.get_samplewidth())
         self.cursor = 0
         self.traces = {}
         ## configuring the pyqtgraph
@@ -83,20 +83,20 @@ class Vumeter:
             self.traces[name].setData(data_x, data_y)
         else:
             self.traces[name] = self.waveform.plot(pen=colour, width=3)
-            self.waveform.setYRange(0, 100000, padding=0)
+            self.waveform.setYRange(0, 1, padding=0)
             self.waveform.setXRange(0, self.chunk, padding=0.005)
 
     def update(self):
         length = self.source.get_nchannels()
         for i in range(length):
             wf_data = self.normalized_data[self.cursor:self.cursor + self.chunk, i]
-            self.set_plotdata(name='channel %d'%i, data_x=self.x, data_y=wf_data,)
+            self.set_plotdata(name='channel %d'%i, data_x=self.x[0:len(wf_data)], data_y=wf_data,)
         self.cursor += self.chunk
 
     def animate_track(self):
         timer = QtCore.QTimer()
         timer.timeout.connect(self.update)
-        refresh_time = int(self.source.get_framerate()/self.chunk)*6
+        refresh_time = int(self.chunk/self.source.get_framerate()*1000)+1
         timer.start(refresh_time)
         self.start()   
         

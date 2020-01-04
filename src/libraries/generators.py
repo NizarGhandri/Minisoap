@@ -23,8 +23,8 @@ def sine_n(A, n, f, start = 0, nchannels = 2, samplewidth = 2, fs=44100):
     samples = frame_slice
     for i in range(1,nchannels): 
         samples = np.column_stack((samples,frame_slice))
-    signal = A*np.sin(2*np.pi*f*samples).reshape(n, nchannels)
-    return Track(signal+A, n, nchannels, samplewidth, fs)
+    signal = A*2**(samplewidth*8 -1)*np.sin(2*np.pi*f*samples).reshape(n, nchannels)
+    return Track(signal+A*2**(samplewidth*8 -1), n, nchannels, samplewidth, fs)
     
 
 ## Generate sine wave by seconds
