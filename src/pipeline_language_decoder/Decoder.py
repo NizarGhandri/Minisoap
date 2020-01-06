@@ -99,7 +99,6 @@ class Decoder(Transformer):
                 "vumeter" : self.p.vumeter,
                 
         }
-        
         self.current_op = None
     
     ## @var p
