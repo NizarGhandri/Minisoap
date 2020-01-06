@@ -19,9 +19,11 @@ class Decoder(Transformer):
     # TERMINAL: string, int, float or a regular expression
     grammar = Lark(r"""
     
-    instruction: op args | control_op
+    instruction: op args | control_op | help_op
     
     control_op: CONTROL
+    
+    help_op: "?" OP | "?" CONTROL
     
     op: OP
     args: "["arg* ("," arg)*"]"
@@ -138,6 +140,20 @@ class Decoder(Transformer):
         (x,) = x
         self.op_d.get(str(x))()
         
+    ## op decoder
+    #
+    #  @param self Object's pointer
+    #  @param x The Token
+    #  @type x Token
+    #
+    # Calls the processor's corresponding method for operations
+    def help_op(self, x):
+        (x,) = x
+        self.current_op = self.op_d.get(str(x))
+        print(self.current_op.__doc__[1::])
+        return str(x)
+    
+    
     ## args rule decoder
     #
     #  @param self Object's pointer

@@ -29,7 +29,7 @@
 
 ### Operations on tracks
 * nullify [track_id_in, track_id_out, start=0, end=None] : Nullify the track *track_id_in* and stores it in *track_id_out*
-* fade *[track_id_in, track_id_out, factor, t] : Fade the track *track_id_in*, with factor *factor* starting from *t*, and stores it in *track_id_out*
+* fade [track_id_in, track_id_out, factor, t] : Fade the track *track_id_in*, with factor *factor* starting from *t*, and stores it in *track_id_out*
 * fadeinv [track_id_in, track_id_out, factor, t] : Fade inverse the track *track_id_in*, with factor *factor* starting from *t*, and stores it in *track_id_out*
 * amplitude [track_id_in, track_id_out, a] : Multiply amplitude of the track *track_id_in* by a factor of *a* and stores it in *track_id_out*
 
