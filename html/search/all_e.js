@@ -1,18 +1,8 @@
 var searchData=
 [
-  ['show',['show',['../classProcessor_1_1Processor.html#a29a41334f34aeaef2360e489d3bbc789',1,'Processor::Processor']]],
-  ['silence',['silence',['../classProcessor_1_1Processor.html#ab9608fccb794acf2c5cb770e0997a4af',1,'Processor::Processor']]],
-  ['sine',['sine',['../classProcessor_1_1Processor.html#a400b36ca86635b27baa575fb1f5c7d5c',1,'Processor::Processor']]],
-  ['sine_5fn',['sine_n',['../group__generators.html#ga8d7d626b7e02cdd5ee2cc5d647e5ba65',1,'generators']]],
-  ['sine_5ft',['sine_t',['../group__generators.html#ga80e0c8d661b1017d363dd533e1b9d899',1,'generators']]],
-  ['start',['start',['../classConsole_1_1Console.html#a4c6d306ffefa38ead2655ca49e945d2d',1,'Console::Console']]],
-  ['stereo',['stereo',['../classProcessor_1_1Processor.html#aecf304b4f2ad001d310f840d16fe7a47',1,'Processor::Processor']]],
-  ['stop',['stop',['../classProcessor_1_1Processor.html#a9781ea110f03594c74161ae3350e2d7b',1,'Processor::Processor']]],
-  ['stop_5fplay',['stop_play',['../classProcessor_1_1Processor.html#ae7fffa62071823bb2c31d50d880f2926',1,'Processor::Processor']]],
-  ['stop_5frecord',['stop_record',['../classProcessor_1_1Processor.html#a21fc062886c27c23b6a01b2aaaa5fbd7',1,'Processor::Processor']]],
-  ['stream',['Stream',['../classStream_1_1Stream.html',1,'Stream']]],
-  ['stream_5fin',['stream_in',['../classProcessor_1_1Processor.html#a56a85dc31472be083d491a0705675f69',1,'Processor::Processor']]],
-  ['stream_5fout',['stream_out',['../classProcessor_1_1Processor.html#a6136b917945b9ed01974139c08f1b114',1,'Processor::Processor']]],
-  ['streams',['streams',['../classProcessor_1_1Processor.html#adf39c486d930534e2025a168b66912eb',1,'Processor::Processor']]],
-  ['string',['string',['../classDecoder_1_1Decoder.html#a94594fe675077fe4bd83fe20401036c1',1,'Decoder::Decoder']]]
+  ['read',['read',['../classProcessor_1_1Processor.html#a6c476b3f7da6e4cc0cbc4d2d9d33a436',1,'Processor::Processor']]],
+  ['read_5fall',['read_all',['../classInputStream_1_1InputStream.html#a27f9c514fb1147ca444fc5bb5fd759c4',1,'InputStream::InputStream']]],
+  ['read_5fn_5fframes',['read_n_frames',['../classInputStream_1_1InputStream.html#af7cc2b4d075862608a8eeb70080ddf33',1,'InputStream::InputStream']]],
+  ['record',['record',['../classProcessor_1_1Processor.html#afb54379bdaadc34a2c7796f969c907f9',1,'Processor::Processor']]],
+  ['reset',['reset',['../classProcessor_1_1Processor.html#a183bf94c15534ebad295ce00e9a26080',1,'Processor::Processor']]]
 ];

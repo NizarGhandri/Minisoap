@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['nullify',['nullify',['../classProcessor_1_1Processor.html#ae2dcd83ca6bcdd799ecd0f8154c8674d',1,'Processor.Processor.nullify()'],['../group__operations.html#gaeb95b590b032d141690144a0c3429949',1,'operations.nullify()']]]
+  ['minisoap',['Minisoap',['../index.html',1,'']]],
+  ['mix',['mix',['../classProcessor_1_1Processor.html#a020c63449e4f82061463d5e866bebc8f',1,'Processor::Processor']]],
+  ['mono_5fto_5fstereo',['mono_to_stereo',['../group__operations.html#ga9d11f267b7292b1acab31ffad24b1fe4',1,'operations']]]
 ];

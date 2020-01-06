@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['track',['Track',['../classTracks_1_1Track.html',1,'Tracks']]]
+  ['track',['Track',['../classTrack_1_1Track.html',1,'Track']]]
 ];
