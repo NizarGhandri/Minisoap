@@ -5,11 +5,14 @@ Created on Fri Nov 29 17:32:29 2019
 
 @author: chris
 """
-
-from processor.Processor import Processor
-from pipeline_language_decoder.Decoder import Decoder
-from Streams.InputStream import InputStream
-from Streams.Track import Track
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+from src.processor.Processor import Processor
+from src.pipeline_language_decoder.Decoder import Decoder
+from src.Streams.InputStream import InputStream
+from src.Streams.Track import Track
 import subprocess
 
 def test_add_execute():

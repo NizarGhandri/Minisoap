@@ -6,9 +6,11 @@ Created on Mon Jan  6 16:04:15 2020
 @author: nizar
 """
 
-import sys
 import pytest
-sys.path.append("../../")
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../..')
 from src.Streams.InputStream import InputStream as Input
 from src.Streams.OutputStream import OutputStream as Output
 import hypothesis.strategies as st
