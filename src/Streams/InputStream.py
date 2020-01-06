@@ -37,7 +37,7 @@ class InputStream(s):
         p.check(self.launched, details ="cannot read unopened stream")
         p.check_in_range(n, endExclusive = self.get_size()+1)
         #try:
-        return Track(self.wave_signal.readframes(n), n, nchannels = self.nchannels(), samplewidth = self.sample_width(), framerate = self.frame_rate()) 
+        return Track(self.wave_signal.readframes(n), n, nchannels = self.get_nchannels(), samplewidth = self.get_sample_width(), framerate = self.get_frame_rate()) 
         #except:
             #p.eprint("Error occured while reading the frames from source", self.file)
             

@@ -42,7 +42,8 @@ class InputStream_SoundCard (Stream):
     def get_framerate(self):
         return self.framerate 
         
-            
+    def get_nchannels(self):
+        return self.nchannels
         
         
         
