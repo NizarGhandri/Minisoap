@@ -143,18 +143,18 @@ class Decoder(Transformer):
         (x,) = x
         self.op_ctrl.get(str(x))()
         
-    ## op decoder
+    ## help_op decoder
     #
     #  @param self Object's pointer
     #  @param x The Token
     #  @type x Token
     #
-    # Calls the processor's corresponding method for operations
+    # Calls the processor's corresponding method for help operations
     def help_op(self, x):
         (x,) = x
-        self.current_op = self.op_d.get(str(x))
+        st = str(x)
         
-        if(self.current_op == "help"):
+        if(st == "help"):
             print("################################# HELP #################################")
             
             print("################################# CONTROL")
@@ -169,6 +169,7 @@ class Decoder(Transformer):
             
             
         else:
+            self.current_op = self.op_d.get(st)
             print(self.current_op.__doc__[1::])
     
     
