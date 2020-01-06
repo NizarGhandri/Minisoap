@@ -1,6 +1,7 @@
 language: python
 
 
+  # shell
 before_install:
   # Here we just install Miniconda, which you shouldn't have to change.
 
