@@ -15,6 +15,7 @@ import sounddevice as sd
 from Streams.soundCard.InputStreamSoundCard import InputStream_SoundCard
 from Streams.soundCard.OutputStreamSoundCard import OutputStream_SoundCard
 import Preconditions as p
+from libraries.Vumeter import Vumeter
 
 ## Processor
 #
@@ -241,11 +242,13 @@ class Processor():
         
         @param track_id Id of track to be played
         @param device device from which to play (check sounddevice library to change default value)
-    
+        
         Start playing *track_id* from sound card
         """
+        
         track = self.av_tracks.get(track_id)
         p.check_non_none(track, details="Invalid track ID")
+        
         sd = OutputStream_SoundCard(track, device=device)
         sd.write()
         self.stream_out.update({"soundcard" : sd})
@@ -460,7 +463,6 @@ class Processor():
         
         convolve [track_id_in1, track_id_in2, track_id_out]
         
-        @param self Object's pointer
         @param track_id_in1 Id of first input track
         @param track_id_in2 Id of second input track
         @param track_id_out Id of output track
@@ -473,3 +475,23 @@ class Processor():
         p.check_non_none(track2, details="Invalid second track ID")
         self.av_tracks.update({track_id_out : op.convolve(track1, track2)})
 
+
+    def vumeter(self, track_id):
+        """!
+        Vumeter
+        
+        vumeter [track_id]
+        
+        @param track_id Id of track
+        
+        Visualize track using Vumeter
+        """
+        track = self.av_tracks.get(track_id)
+        v = Vumeter(track=track)
+        v.animate_track()
+        
+        
+        
+        
+        
+        

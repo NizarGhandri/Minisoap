@@ -39,7 +39,7 @@ class Decoder(Transformer):
     OP: "open" | "close" | "read" | "write" | "free" | "record" | "stop_record" | "play" | "stop_play" 
       | "sine" | "constant" | "silence"
       | "nullify" | "fade" | "fadeinv" | "amplitude"
-      | "crossfade" | "stereo" | "mix"
+      | "crossfade" | "stereo" | "mix" | "vumeter"
     
     HELP: "help"
     
@@ -95,6 +95,8 @@ class Decoder(Transformer):
                 "crossfade" : self.p.crossfade,
                 "stereo" : self.p.stereo,
                 "mix" : self.p.mix,
+                
+                "vumeter" : self.p.vumeter,
                 
         }
         
