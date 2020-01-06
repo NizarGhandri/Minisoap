@@ -106,13 +106,13 @@ class Processor():
         for q_item in self.pipeline.queue:
             print(q_item[0].__name__ + " " + str(q_item[1]) + "\n")
     
-    def helpp(self):
-        """!
-        Print Command sheet
-        """
-        print("######################################## HELP ########################################")
-        with open('help.txt', 'r') as fin:
-            print(fin.read())
+    ##def helpp(self):
+   ##     """!
+   ##     Print available operations
+   ##     """
+   ##     print("######################################## HELP ########################################")
+   ##     with open('help.txt', 'r') as fin:
+   ##         print(fin.read())
            
     
     def openn(self, file_path, file_id):
