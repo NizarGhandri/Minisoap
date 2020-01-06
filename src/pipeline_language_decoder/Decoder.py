@@ -1,3 +1,8 @@
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 from lark import Lark, Transformer
 from processor.Processor import Processor
 import Preconditions as p
@@ -48,6 +53,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param processor Minisoap's processor pointer
+    #  @type processor Processor
     def __init__(self, processor):
         
         p.check_instance(processor, Processor, details="Processor given not instance of processor")
@@ -90,18 +96,22 @@ class Decoder(Transformer):
         self.current_op = None
     
     ## @var p
+    #  @type p Processor
     #  Minisoap's processor pointer
     
     ## @var op_d
+    #  @type op_d Dict
     #  Dictionary containing decoder's dispacher for user's instructions
     
     ## @var current_op
+    #  @type current_op Tuple
     #  Tuple storing current instruction's args
     
     ## Instruction rule decoder
     #
     #  @param self Object's pointer
     #  @param x The Token
+    #  @type x Token
     def instruction(self, x):
         return list(x)
     
@@ -109,6 +119,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param x The Token
+    #  @type x Token
     #
     # Calls the processor's corresponding method for operations
     def op(self, x):
@@ -120,6 +131,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param x The Token
+    #  @type x Token
     #
     # Calls the processor's corresponding method for control operations
     def control_op(self, x):
@@ -130,6 +142,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param x The Token
+    #  @type x Token
     #
     # Save the arguments of the instruction
     def args(self, x):
@@ -141,6 +154,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param x The Token
+    #  @type x Token
     def arg(self, x):
         (x,) = x
         return x
@@ -149,6 +163,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param s The Token
+    #  @type s Token
     def string(self, s):
         (s,) = s
         return s[1:-1]
@@ -157,6 +172,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param s The Token
+    #  @type s Token
     def integer(self, s):
         (s,) = s
         return int(s)
@@ -165,6 +181,7 @@ class Decoder(Transformer):
     #
     #  @param self Object's pointer
     #  @param s The Token
+    #  @type s Token
     def floating(self, s):
         (s,) = s
         return float(s)

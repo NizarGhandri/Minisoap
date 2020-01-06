@@ -8,10 +8,13 @@
 # 
 # This class is a mother class of all streams in the project.
 
+import os
 import sys
-sys.path.append("../")
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 import wave
-import src.Preconditions as p
+import Preconditions as p
 from abc import ABC, abstractmethod
 
 

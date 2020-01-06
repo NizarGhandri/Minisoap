@@ -5,8 +5,11 @@ Created on Thu Nov  7 23:47:04 2019
 
 @author: nizar
 """
+import os
 import sys
-#sys.path.append("../../")
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 import numpy as np
 import Preconditions as p
 

@@ -3,6 +3,12 @@
 # This module should contain all operations available on tracks
 # @{
 
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
+
 from Streams.Track import Track
 import numpy as np
 import Preconditions as p

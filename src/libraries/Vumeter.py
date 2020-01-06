@@ -5,8 +5,11 @@ Created on Fri Dec 13 18:56:05 2019
 
 @author: nizar
 """
-import sys 
-sys.path.append("../")
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 import Preconditions as p
 import numpy as np
 from pyqtgraph.Qt import QtGui, QtCore

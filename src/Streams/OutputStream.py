@@ -5,14 +5,18 @@ Created on Fri Oct 11 14:16:04 2019
 
 @author: nizar
 """
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
 
 import Preconditions as p
-from Streams.Stream import Stream as s
+from Streams.Stream import Stream
 import subprocess
 ##Output stream class for local files:
 # Class inheriting from stream and defining the output for a local file
 
-class OutputStream (s): 
+class OutputStream (Stream): 
     
     writting_mode = 'wb'
     ## Constructor 

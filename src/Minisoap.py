@@ -13,7 +13,7 @@ from pipeline_language_decoder.Console import Console
 
 def main():
     processor = Processor()
-
+    print(Console.start.__doc__)
     decoder = Decoder(processor)
 
     console = Console(decoder)

@@ -3,6 +3,11 @@
 # This module should contain all track generators
 # @{
 
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 import numpy as np
 from Streams.Track import Track
 import Preconditions as p

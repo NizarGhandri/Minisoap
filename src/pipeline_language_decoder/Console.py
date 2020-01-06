@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
 
 from pipeline_language_decoder.Decoder import Decoder
 import Preconditions as p
@@ -8,7 +12,7 @@ import Preconditions as p
 #
 # This object is the console of the Minisoap that will take user's instructions
 class Console():
-    
+
     ## Console constructor
     #  @param self Object's pointer
     #  @param decoder Minisoap's decoder pointer

@@ -5,9 +5,12 @@ Created on Mon Nov 18 14:08:04 2019
 
 @author: nizar
 """
+import os
 import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../..')
+
 import sounddevice as sd #low level library for soundcard(hardware) use
-sys.path.append('../../')
 import Preconditions as p
 from Streams.Stream import Stream
 from Streams.Track import Track 

@@ -5,16 +5,21 @@ Created on Sat Oct  5 00:49:13 2019
 
 @author: nizar
 """
+import os
+import sys
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/..')
+
 from Streams.Track import Track
 import math as m
 import Preconditions as p
-from Streams.Stream import Stream as s
+from Streams.Stream import Stream
 import subprocess
 
 ## Input stream class for local files 
 # Class inheriting from stream and defining the input for a local file
 
-class InputStream(s): 
+class InputStream(Stream): 
     reading_mode = 'rb'
     
     def __init__ (self, source, infinite = False, launch = True): 
