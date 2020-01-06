@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 11 15:22:14 2019
-
-@author: chris
-"""
-
 import numpy as np
 from Preconditions import *
 
