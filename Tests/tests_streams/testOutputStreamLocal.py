@@ -19,32 +19,32 @@ import subprocess
 import numpy as np
 
 def test_write_wav (): 
-     wave1 = Input("../test_samples/sanctuaryTest.wav")
+     wave1 = Input("Tests/test_samples/sanctuaryTest.wav")
      T = wave1.read_all()
      wave1.close()
-     wave2 = Output("../test_samples/testsample.wav", T)
+     wave2 = Output("Tests/test_samples/testsample.wav", T)
      wave2.write()
      wave2.close()
-     wave3 = Input("../test_samples/testsample.wav")
+     wave3 = Input("Tests/test_samples/testsample.wav")
      T_ = wave3.read_all()
      wave3.close()
-     bashCommand = "rm ../test_samples/testsample.wav"
+     bashCommand = "rm Tests/test_samples/testsample.wav"
      process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
      output, error = process.communicate()
      assert np.array_equal(T.get_data(), T_.get_data())
      
      
 def test_write_mp3 (): 
-     wave1 = Input("../test_samples/sanctuary.mp3")
+     wave1 = Input("Tests/test_samples/sanctuary.mp3")
      T = wave1.read_all()
      wave1.close()
-     wave2 = Output("../test_samples/testsample.wav", T)
+     wave2 = Output("Tests/test_samples/testsample.wav", T)
      wave2.write()
      wave2.close()
-     wave3 = Input("../test_samples/testsample.wav")
+     wave3 = Input("Tests/test_samples/testsample.wav")
      T_ = wave3.read_all()
      wave3.close()
-     bashCommand = "rm ../test_samples/testsample.wav"
+     bashCommand = "rm Tests/test_samples/testsample.wav"
      process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
      output, error = process.communicate()
      assert np.array_equal(T.get_data(), T_.get_data())

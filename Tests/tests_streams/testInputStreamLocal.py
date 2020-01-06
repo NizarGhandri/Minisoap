@@ -19,19 +19,19 @@ from hypothesis import given
 
 #wave parameters: (nchannels, sampwidth, framerate, nframes, 'NONE', 'not compressed')
 def test_open_wav ():
-    wave1 = Input("../test_samples/Alesis-Fusion-Bright-Acoustic-Piano-C2.wav")
+    wave1 = Input("Tests/test_samples/Alesis-Fusion-Bright-Acoustic-Piano-C2.wav")
     assert (wave1.get_nchannels(), wave1.get_sample_width(), wave1.get_frame_rate()) == (2, 2, 44100)
     wave1.close()
 
    
 def test_open_mp3 ():
-    wave1 = Input("../test_samples/sanctuary.mp3")
+    wave1 = Input("Tests/test_samples/sanctuary.mp3")
     assert (wave1.get_nchannels(), wave1.get_sample_width(), wave1.get_frame_rate()) == (2, 2, 44100)
     wave1.close()
 
 @given (st.integers())
 def test_read_n (i): 
-    wave1 = Input("../test_samples/Alesis-Fusion-Bright-Acoustic-Piano-C2.wav")
+    wave1 = Input("Tests/test_samples/Alesis-Fusion-Bright-Acoustic-Piano-C2.wav")
     size = i % wave1.get_size()
     T = wave1.read_n_frames(size)
     assert T.get_size() == size

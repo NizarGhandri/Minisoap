@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classInputStream_1_1InputStream.html" title="Input stream class for local files Class inheriting from stream and defining the input for a local fi..." alt="" coords="139,5,307,32"/>
+<area shape="rect" id="node3" href="$classInputStreamSoundCard_1_1InputStream__SoundCard.html" title="InputStreamSoundCard.Input\lStream_SoundCard" alt="" coords="127,57,318,98"/>
+<area shape="rect" id="node4" href="$classOutputStream_1_1OutputStream.html" title="Output stream class for local files: Class inheriting from stream and defining the output for a local..." alt="" coords="129,123,317,149"/>
+<area shape="rect" id="node5" href="$classOutputStreamSoundCard_1_1OutputStream__SoundCard.html" title="OutputStreamSoundCard.Output\lStream_SoundCard" alt="" coords="117,174,328,215"/>
+</map>
