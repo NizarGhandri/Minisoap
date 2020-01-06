@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['mix',['mix',['../classProcessor_1_1Processor.html#a020c63449e4f82061463d5e866bebc8f',1,'Processor::Processor']]],
-  ['mono_5fto_5fstereo',['mono_to_stereo',['../group__operations.html#ga9d11f267b7292b1acab31ffad24b1fe4',1,'operations']]]
+  ['init_5fformat',['init_format',['../classInputStream_1_1InputStream.html#aebc83ca308feee01f6a2469ff65daf41',1,'InputStream::InputStream']]],
+  ['inputstream',['InputStream',['../classInputStream_1_1InputStream.html',1,'InputStream']]],
+  ['inputstream_5fsoundcard',['InputStream_SoundCard',['../classInputStreamSoundCard_1_1InputStream__SoundCard.html',1,'InputStreamSoundCard']]],
+  ['instruction',['instruction',['../classDecoder_1_1Decoder.html#a8c70cd72f901a2c74461513e61f592d3',1,'Decoder::Decoder']]],
+  ['integer',['integer',['../classDecoder_1_1Decoder.html#a6bf619fd001e63c9a46f8f87921080d2',1,'Decoder::Decoder']]]
 ];

@@ -19,9 +19,12 @@ class Decoder(Transformer):
     # TERMINAL: string, int, float or a regular expression
     grammar = Lark(r"""
     
-    instruction: op args | control_op
+    instruction: op args | control_op | help_op
     
     control_op: CONTROL
+    
+    help_op: "?" OP | "?" CONTROL | HELP
+    
     
     op: OP
     args: "["arg* ("," arg)*"]"
@@ -31,13 +34,14 @@ class Decoder(Transformer):
     integer: SIGNED_NUMBER
     floating: SIGNED_FLOAT
     
-    CONTROL: "stop" | "execute" | "reset" | "tracks" | "streams" | "show" | "help"
+    CONTROL: "stop" | "execute" | "reset" | "tracks" | "streams" | "show"
     
     OP: "open" | "close" | "read" | "write" | "free" | "record" | "stop_record" | "play" | "stop_play" 
       | "sine" | "constant" | "silence"
       | "nullify" | "fade" | "fadeinv" | "amplitude"
       | "crossfade" | "stereo" | "mix"
     
+    HELP: "help"
     
     %import common.ESCAPED_STRING
     %import common.SIGNED_FLOAT
@@ -59,6 +63,15 @@ class Decoder(Transformer):
         p.check_instance(processor, Processor, details="Processor given not instance of processor")
         self.p = processor
     
+        self.op_ctrl = {
+                "stop": self.p.stop,
+                "execute": self.p.execute,
+                "reset": self.p.reset,
+                "tracks" : self.p.tracks,
+                "streams": self.p.streams,
+                "show" : self.p.show,
+        }
+        
         self.op_d = {
                 "open" : self.p.openn,
                 "close" : self.p.close,
@@ -83,14 +96,6 @@ class Decoder(Transformer):
                 "stereo" : self.p.stereo,
                 "mix" : self.p.mix,
                 
-                
-                "stop": self.p.stop,
-                "execute": self.p.execute,
-                "reset": self.p.reset,
-                "tracks" : self.p.tracks,
-                "streams": self.p.streams,
-                "show" : self.p.show,
-                "help" : self.p.helpp
         }
         
         self.current_op = None
@@ -136,8 +141,38 @@ class Decoder(Transformer):
     # Calls the processor's corresponding method for control operations
     def control_op(self, x):
         (x,) = x
-        self.op_d.get(str(x))()
+        self.op_ctrl.get(str(x))()
         
+    ## help_op decoder
+    #
+    #  @param self Object's pointer
+    #  @param x The Token
+    #  @type x Token
+    #
+    # Calls the processor's corresponding method for help operations
+    def help_op(self, x):
+        (x,) = x
+        st = str(x)
+        
+        if(st == "help"):
+            print("################################# HELP #################################")
+            
+            print("################################# CONTROL")
+            for k in self.op_ctrl.keys():
+                print("------" + k)
+                print(self.op_ctrl.get(k).__doc__[1::])
+            
+            print("################################# OPERATIONS")
+            for k in self.op_d.keys():
+                print("------" + k)
+                print(self.op_d.get(k).__doc__[1::])
+            
+            
+        else:
+            self.current_op = self.op_d.get(st)
+            print(self.current_op.__doc__[1::])
+    
+    
     ## args rule decoder
     #
     #  @param self Object's pointer

@@ -71,19 +71,18 @@ $(function() {
 <div class="title">InputStream.InputStream Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Input stream class for local files Class inheriting from stream and defining the input for a local file.  
+ <a href="classInputStream_1_1InputStream.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for InputStream.InputStream:</div>
 <div class="dyncontent">
 <div class="center"><img src="classInputStream_1_1InputStream__inherit__graph.png" border="0" usemap="#InputStream_8InputStream_inherit__map" alt="Inheritance graph"/></div>
-<map name="InputStream_8InputStream_inherit__map" id="InputStream_8InputStream_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for InputStream.InputStream:</div>
 <div class="dyncontent">
 <div class="center"><img src="classInputStream_1_1InputStream__coll__graph.png" border="0" usemap="#InputStream_8InputStream_coll__map" alt="Collaboration graph"/></div>
-<map name="InputStream_8InputStream_coll__map" id="InputStream_8InputStream_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -98,32 +97,35 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>open</b> (self)</td></
 def&#160;</td><td class="memItemRight" valign="bottom"><b>close</b> (self)</td></tr>
 <tr class="separator:a98ddd8046713d950dd0ef52f8f5c8a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7cc2b4d075862608a8eeb70080ddf33"><td class="memItemLeft" align="right" valign="top"><a id="af7cc2b4d075862608a8eeb70080ddf33"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>read_n_frames</b> (self, n)</td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInputStream_1_1InputStream.html#af7cc2b4d075862608a8eeb70080ddf33">read_n_frames</a> (self, n)</td></tr>
+<tr class="memdesc:af7cc2b4d075862608a8eeb70080ddf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">reads_n_frames : n the number of frames to be read returns a Track <br /></td></tr>
 <tr class="separator:af7cc2b4d075862608a8eeb70080ddf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27f9c514fb1147ca444fc5bb5fd759c4"><td class="memItemLeft" align="right" valign="top"><a id="a27f9c514fb1147ca444fc5bb5fd759c4"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>read_all</b> (self)</td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInputStream_1_1InputStream.html#a27f9c514fb1147ca444fc5bb5fd759c4">read_all</a> (self)</td></tr>
+<tr class="memdesc:a27f9c514fb1147ca444fc5bb5fd759c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">read_all reads all teh available frames (uses the read_n_frames method) <br /></td></tr>
 <tr class="separator:a27f9c514fb1147ca444fc5bb5fd759c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfbd76962f4c980098a0c76aae3d33d1"><td class="memItemLeft" align="right" valign="top"><a id="adfbd76962f4c980098a0c76aae3d33d1"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>nchannels</b> (self)</td></tr>
-<tr class="separator:adfbd76962f4c980098a0c76aae3d33d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28b9a7e9a35c7562d5977d9343335ad7"><td class="memItemLeft" align="right" valign="top"><a id="a28b9a7e9a35c7562d5977d9343335ad7"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>stereo</b> (self)</td></tr>
-<tr class="separator:a28b9a7e9a35c7562d5977d9343335ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad878795353afd095c69e68b3ecd4d62e"><td class="memItemLeft" align="right" valign="top"><a id="ad878795353afd095c69e68b3ecd4d62e"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>mono</b> (self)</td></tr>
-<tr class="separator:ad878795353afd095c69e68b3ecd4d62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac11a08a6ed28378b41add2b2da459e26"><td class="memItemLeft" align="right" valign="top"><a id="ac11a08a6ed28378b41add2b2da459e26"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>sample_width</b> (self)</td></tr>
-<tr class="separator:ac11a08a6ed28378b41add2b2da459e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a091e5030bcb250642fc469ae5d5d6a0a"><td class="memItemLeft" align="right" valign="top"><a id="a091e5030bcb250642fc469ae5d5d6a0a"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>frame_rate</b> (self)</td></tr>
-<tr class="separator:a091e5030bcb250642fc469ae5d5d6a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a035c752fd874c8e5a273fa03d6f9c101"><td class="memItemLeft" align="right" valign="top"><a id="a035c752fd874c8e5a273fa03d6f9c101"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> (self)</td></tr>
-<tr class="separator:a035c752fd874c8e5a273fa03d6f9c101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a232b3fd68ba09633e8fed2fa05d66be3"><td class="memItemLeft" align="right" valign="top"><a id="a232b3fd68ba09633e8fed2fa05d66be3"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>current_pos</b> (self)</td></tr>
-<tr class="separator:a232b3fd68ba09633e8fed2fa05d66be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac49f9088ec8093542ec4b08a1a65af9e"><td class="memItemLeft" align="right" valign="top"><a id="ac49f9088ec8093542ec4b08a1a65af9e"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInputStream_1_1InputStream.html#ac49f9088ec8093542ec4b08a1a65af9e">get_nchannels</a> (self)</td></tr>
+<tr class="memdesc:ac49f9088ec8093542ec4b08a1a65af9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">getters and setters for different attributes <br /></td></tr>
+<tr class="separator:ac49f9088ec8093542ec4b08a1a65af9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0af49733d8ee61323625c05b3644e6a"><td class="memItemLeft" align="right" valign="top"><a id="ad0af49733d8ee61323625c05b3644e6a"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>is_stereo</b> (self)</td></tr>
+<tr class="separator:ad0af49733d8ee61323625c05b3644e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c527c3faf37d9c79e5e414d603427b"><td class="memItemLeft" align="right" valign="top"><a id="a72c527c3faf37d9c79e5e414d603427b"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>is_mono</b> (self)</td></tr>
+<tr class="separator:a72c527c3faf37d9c79e5e414d603427b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4ae230c8f4c5bf62694bb094cbe8e9d"><td class="memItemLeft" align="right" valign="top"><a id="ad4ae230c8f4c5bf62694bb094cbe8e9d"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>get_sample_width</b> (self)</td></tr>
+<tr class="separator:ad4ae230c8f4c5bf62694bb094cbe8e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eba4ac6167a9803274b390644874168"><td class="memItemLeft" align="right" valign="top"><a id="a6eba4ac6167a9803274b390644874168"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>get_frame_rate</b> (self)</td></tr>
+<tr class="separator:a6eba4ac6167a9803274b390644874168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385110b9b534df45c155ed87a4313cca"><td class="memItemLeft" align="right" valign="top"><a id="a385110b9b534df45c155ed87a4313cca"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>get_size</b> (self)</td></tr>
+<tr class="separator:a385110b9b534df45c155ed87a4313cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaccf7db564c66227304f2dc088942d8"><td class="memItemLeft" align="right" valign="top"><a id="acaccf7db564c66227304f2dc088942d8"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>get_current_pos</b> (self)</td></tr>
+<tr class="separator:acaccf7db564c66227304f2dc088942d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa30af9cd9bc2c505f827451b33044365"><td class="memItemLeft" align="right" valign="top"><a id="aa30af9cd9bc2c505f827451b33044365"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>set_reading_pos</b> (self, pos)</td></tr>
 <tr class="separator:aa30af9cd9bc2c505f827451b33044365"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,7 +152,9 @@ Static Public Attributes</h2></td></tr>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>reading_mode</b> = 'rb'</td></tr>
 <tr class="separator:a03a24adce462bec85065418ebf8e27fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Input stream class for local files Class inheriting from stream and defining the input for a local file. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aebc83ca308feee01f6a2469ff65daf41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aebc83ca308feee01f6a2469ff65daf41">&#9670;&nbsp;</a></span>init_format()</h2>
 
@@ -173,7 +177,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>reading_mode</b> = 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Streams/InputStream.py</li>
+<li>src/Streams/InputStream.py</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

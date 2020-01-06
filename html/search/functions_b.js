@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['read',['read',['../classProcessor_1_1Processor.html#a6c476b3f7da6e4cc0cbc4d2d9d33a436',1,'Processor::Processor']]],
-  ['record',['record',['../classProcessor_1_1Processor.html#afb54379bdaadc34a2c7796f969c907f9',1,'Processor::Processor']]],
-  ['reset',['reset',['../classProcessor_1_1Processor.html#a183bf94c15534ebad295ce00e9a26080',1,'Processor::Processor']]]
+  ['op',['op',['../classDecoder_1_1Decoder.html#a67f226d029ddcb67d6496c830c47a379',1,'Decoder::Decoder']]],
+  ['open',['open',['../classStream_1_1Stream.html#aeb2e40ef53e03688f1721afc670895f0',1,'Stream::Stream']]],
+  ['openn',['openn',['../classProcessor_1_1Processor.html#a75f56c8fa09aa87096e05e52b6d5e324',1,'Processor::Processor']]]
 ];

@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['fade',['fade',['../classProcessor_1_1Processor.html#a1106228eb22a746c81190b325a2f5a70',1,'Processor::Processor']]],
-  ['fade_5fexp',['fade_exp',['../group__operations.html#ga0555419232bb38ee9fc7343b910c970f',1,'operations']]],
-  ['fade_5finv',['fade_inv',['../group__operations.html#gaae821aed64875e267379e74c9d7ff777',1,'operations']]],
-  ['fadeinv',['fadeinv',['../classProcessor_1_1Processor.html#a8d41d135a935d1b0073a353d9e7b9b78',1,'Processor::Processor']]],
-  ['floating',['floating',['../classDecoder_1_1Decoder.html#affaa7bcfb1c37fd4fc552e800ed7c16f',1,'Decoder::Decoder']]],
-  ['free',['free',['../classProcessor_1_1Processor.html#a1f79b519a08cc2ef50c17048387c930b',1,'Processor::Processor']]]
+  ['end_5fformat',['end_format',['../classInputStream_1_1InputStream.html#ab4b6cb878b95a3f4da66390cf967647e',1,'InputStream::InputStream']]],
+  ['eprint',['eprint',['../group__preconditions.html#ga1960a5d031ecc363c53d7d780e3d5ab1',1,'Preconditions']]],
+  ['execute',['execute',['../classProcessor_1_1Processor.html#a6b299b1621491d764656c8eb30bff089',1,'Processor::Processor']]],
+  ['extend_5fwith_5fzeroes_5ffront',['extend_with_zeroes_front',['../classTrack_1_1Track.html#ace6bfb3307f279c5e0f66d42cdcefb37',1,'Track::Track']]],
+  ['example',['Example',['../md_Examples.html',1,'']]]
 ];
