@@ -166,7 +166,7 @@ class Processor():
         else: 
             s = self.stream_in.get(file_id)
             p.check_non_none(s, details="Invalid stream ID")
-            fs = s.frame_rate()
+            fs = s.get_frame_rate()
             track = s.read_n_frames(int(float(t)*fs))
         self.av_tracks.update({track_id: track})
         

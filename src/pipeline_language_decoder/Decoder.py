@@ -1,11 +1,11 @@
 import os
 import sys
 myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/../..')
+sys.path.insert(0, myPath + '/..')
 
 from lark import Lark, Transformer
-from src.processor.Processor import Processor
-import src.Preconditions as p
+from processor.Processor import Processor
+import Preconditions as p
 ## Decoder
 #
 # This object is the decoder of the Minisoap that will translate user's instructions into processor commands

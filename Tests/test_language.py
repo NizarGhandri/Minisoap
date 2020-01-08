@@ -8,11 +8,11 @@ Created on Fri Nov 29 17:32:29 2019
 import os
 import sys
 myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/..')
-from src.processor.Processor import Processor
-from src.pipeline_language_decoder.Decoder import Decoder
-from src.Streams.InputStream import InputStream
-from src.Streams.Track import Track
+sys.path.insert(0, myPath + '/../src')
+from processor.Processor import Processor
+from pipeline_language_decoder.Decoder import Decoder
+from Streams.InputStream import InputStream
+from Streams.Track import Track
 import subprocess
 
 def test_add_execute():
@@ -39,7 +39,6 @@ def test_open_close():
     instruction = "open [\"Tests/test_samples/sanctuary.wav\", \"test\"]"
     decoder.transform(Decoder.grammar.parse(instruction))
     decoder.transform(Decoder.grammar.parse("execute"))
-    
     assert isinstance(processor.stream_in.get("test"), InputStream), "Fail to open file"
     
     ## Close
@@ -76,7 +75,7 @@ def test_read_free():
     
     assert isinstance(processor.av_tracks.get("track"), Track), "Error in reading a track"
     
-    assert abs(processor.av_tracks.get("track").get_time() - 2.0) < 0.1, "Error in reading a certain amount of seconds from a file" 
+    assert abs(processor.av_tracks.get("track").get_time() - 2.0) < 1, "Error in reading a certain amount of seconds from a file" 
     
     decoder.transform(Decoder.grammar.parse("free [\"track\"]"))
     decoder.transform(Decoder.grammar.parse("execute"))
