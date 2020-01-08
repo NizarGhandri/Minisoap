@@ -1,11 +1,11 @@
 import os
 import sys
 myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/..')
+sys.path.insert(0, myPath + '/../..')
 
 from lark import Lark, Transformer
-from processor.Processor import Processor
-import Preconditions as p
+from src.processor.Processor import Processor
+import src.Preconditions as p
 ## Decoder
 #
 # This object is the decoder of the Minisoap that will translate user's instructions into processor commands
@@ -59,50 +59,50 @@ class Decoder(Transformer):
     #  @param processor Minisoap's processor pointer
     #  @type processor Processor
     def __init__(self, processor):
-        
+
         p.check_instance(processor, Processor, details="Processor given not instance of processor")
-        self.p = processor
+        self.processor = processor
     
         self.op_ctrl = {
-                "stop": self.p.stop,
-                "execute": self.p.execute,
-                "reset": self.p.reset,
-                "tracks" : self.p.tracks,
-                "streams": self.p.streams,
-                "show" : self.p.show,
+                "stop": self.processor.stop,
+                "execute": self.processor.execute,
+                "reset": self.processor.reset,
+                "tracks" : self.processor.tracks,
+                "streams": self.processor.streams,
+                "show" : self.processor.show,
         }
         
         self.op_d = {
-                "open" : self.p.openn,
-                "close" : self.p.close,
-                "read" : self.p.read,
-                "write" : self.p.write,
-                "free" : self.p.free,
-                "record" : self.p.record,
-                "stop_record" : self.p.stop_record,
-                "play" : self.p.play,
-                "stop_play" : self.p.stop_play,
+                "open" : self.processor.openn,
+                "close" : self.processor.close,
+                "read" : self.processor.read,
+                "write" : self.processor.write,
+                "free" : self.processor.free,
+                "record" : self.processor.record,
+                "stop_record" : self.processor.stop_record,
+                "play" : self.processor.play,
+                "stop_play" : self.processor.stop_play,
                 
-                "sine" : self.p.sine,
-                "constant" : self.p.constant,
-                "silence" : self.p.silence,
+                "sine" : self.processor.sine,
+                "constant" : self.processor.constant,
+                "silence" : self.processor.silence,
                 
-                "nullify" : self.p.nullify,
-                "fade" : self.p.fade,
-                "fadeinv" : self.p.fadeinv,
-                "amplitude" : self.p.amplitude,
+                "nullify" : self.processor.nullify,
+                "fade" : self.processor.fade,
+                "fadeinv" : self.processor.fadeinv,
+                "amplitude" : self.processor.amplitude,
                 
-                "crossfade" : self.p.crossfade,
-                "stereo" : self.p.stereo,
-                "mix" : self.p.mix,
+                "crossfade" : self.processor.crossfade,
+                "stereo" : self.processor.stereo,
+                "mix" : self.processor.mix,
                 
-                "vumeter" : self.p.vumeter,
+                "vumeter" : self.processor.vumeter,
                 
         }
         self.current_op = None
     
-    ## @var p
-    #  @type p Processor
+    ## @var processor
+    #  @type processor Processor
     #  Minisoap's processor pointer
     
     ## @var op_d
@@ -182,7 +182,7 @@ class Decoder(Transformer):
     #
     # Save the arguments of the instruction
     def args(self, x):
-        self.p.add(self.current_op, tuple(x))
+        self.processor.add(self.current_op, tuple(x))
         return tuple(x)
     
     
