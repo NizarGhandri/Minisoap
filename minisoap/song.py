@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Minisoap.  If not, see <http://www.gnu.org/licenses/>.
 
-from .stream import Stream
+from stream import Stream
 from pathlib import Path
 import  numpy, subprocess
 
